@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Naufal — Aspiring AI Specialist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
+:root{
+  --bg:#f5f4f0;--surface:#fff;--surface2:#eeeee8;
+  --border:rgba(0,0,0,0.09);--border-md:rgba(0,0,0,0.15);
+  --text:#111110;--text-2:#55544f;--text-3:#99988f;
+  --accent:#111110;--accent-fg:#fff;
+  --tag-bg:#e4e3dc;--tag-text:#55544f;
+  --pill-bg:#eeeee8;--pill-text:#55544f;
+  --gold-bg:#f0e8c8;--gold-text:#7a6010;
+  --green:#2e6b10;--nav-blur:rgba(245,244,240,0.93);
+  --hero-grad:linear-gradient(160deg,#f5f4f0 0%,#ece9e0 100%);
+  --progress-color:#111110;
+}
+[data-theme="navy"]{--bg:#f0f3f8;--surface:#fff;--surface2:#e5ecf6;--border:rgba(15,40,90,.10);--border-md:rgba(15,40,90,.18);--text:#0d2550;--text-2:#345090;--text-3:#7090c0;--accent:#0d2550;--accent-fg:#fff;--tag-bg:#d0ddf5;--tag-text:#234090;--pill-bg:#e5ecf6;--pill-text:#345090;--gold-bg:#f5e8b0;--gold-text:#7a5800;--green:#1a7a3a;--nav-blur:rgba(240,243,248,.93);--hero-grad:linear-gradient(160deg,#e8edf8 0%,#d8e4f5 100%);--progress-color:#0d2550}
+[data-theme="mahogany"]{--bg:#f8f2ed;--surface:#fff;--surface2:#f0e6dc;--border:rgba(100,38,18,.10);--border-md:rgba(100,38,18,.18);--text:#3a1808;--text-2:#7a3618;--text-3:#b87848;--accent:#7a3618;--accent-fg:#fff;--tag-bg:#f0d8c0;--tag-text:#7a3618;--pill-bg:#f0e6dc;--pill-text:#7a3618;--gold-bg:#fce8c8;--gold-text:#8a4810;--green:#2e6b10;--nav-blur:rgba(248,242,237,.93);--hero-grad:linear-gradient(160deg,#f8f2ed 0%,#edddd0 100%);--progress-color:#7a3618}
+[data-theme="teal"]{--bg:#eef5f5;--surface:#fff;--surface2:#ddeeed;--border:rgba(8,65,65,.09);--border-md:rgba(8,65,65,.17);--text:#083838;--text-2:#206860;--text-3:#60a8a0;--accent:#0e5e5a;--accent-fg:#fff;--tag-bg:#c8e8e5;--tag-text:#0e5e5a;--pill-bg:#ddeeed;--pill-text:#206860;--gold-bg:#e8f5d0;--gold-text:#2a6010;--green:#0f6b3a;--nav-blur:rgba(238,245,245,.93);--hero-grad:linear-gradient(160deg,#eef5f5 0%,#d8eeec 100%);--progress-color:#0e5e5a}
+[data-theme="dark"]{--bg:#111113;--surface:#1c1c20;--surface2:#242428;--border:rgba(255,255,255,.08);--border-md:rgba(255,255,255,.15);--text:#f0f0ec;--text-2:#9a9a92;--text-3:#565650;--accent:#f0f0ec;--accent-fg:#111113;--tag-bg:#2a2a30;--tag-text:#9a9a92;--pill-bg:#242428;--pill-text:#9a9a92;--gold-bg:#302810;--gold-text:#c8a030;--green:#4aaa28;--nav-blur:rgba(17,17,19,.95);--hero-grad:linear-gradient(160deg,#111113 0%,#1a1a1e 100%);--progress-color:#f0f0ec}
+
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;transition:background .4s,color .4s;overflow-x:hidden;cursor:none}
+
+/* SCROLL PROGRESS BAR */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--progress-color);z-index:9999;transition:width .1s linear,background .4s}
+
+/* CUSTOM CURSOR */
+#cursor{position:fixed;pointer-events:none;z-index:9998;transition:transform .15s ease}
+#cursor-dot{width:8px;height:8px;border-radius:50%;background:var(--text);position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:9998;transition:background .4s,transform .2s}
+#cursor-ring{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--text);position:fixed;transform:translate(-50%,-50%);pointer-events:none;z-index:9997;opacity:.4;transition:background .4s,border-color .4s,width .25s,height .25s,opacity .25s}
+#cursor-spotlight{position:fixed;pointer-events:none;z-index:0;border-radius:50%;width:400px;height:400px;background:radial-gradient(circle,rgba(0,0,0,0.04) 0%,transparent 70%);transform:translate(-50%,-50%);transition:background .4s}
+[data-theme="dark"] #cursor-spotlight{background:radial-gradient(circle,rgba(255,255,255,0.04) 0%,transparent 70%)}
+
+/* THEME BAR */
+.theme-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;background:var(--surface);border-bottom:.5px solid var(--border);flex-wrap:wrap;transition:background .4s;position:relative;z-index:100}
+.theme-label{font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:var(--text-3);margin-right:4px}
+.theme-btn{display:flex;align-items:center;gap:6px;padding:5px 14px;border-radius:20px;border:.5px solid var(--border-md);background:var(--surface2);font-family:'DM Sans',sans-serif;font-size:12px;color:var(--text-2);cursor:none;transition:all .2s}
+.theme-btn:hover{color:var(--text);border-color:var(--text-3)}
+.theme-btn.active{background:var(--accent);color:var(--accent-fg);border-color:var(--accent)}
+.tdot{width:9px;height:9px;border-radius:50%;flex-shrink:0}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:200;background:var(--nav-blur);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:.5px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:58px;transition:background .4s}
+.nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.nav-avatar{width:36px;height:36px;border-radius:50%;overflow:hidden;border:.5px solid var(--border-md);flex-shrink:0}
+.nav-name{font-family:'DM Serif Display',serif;font-size:17px;color:var(--text);transition:color .4s}
+.nav-links{display:flex;gap:26px;align-items:center}
+.nav-links a{font-size:13px;color:var(--text-2);text-decoration:none;transition:color .2s;padding:4px 0;position:relative;cursor:none}
+.nav-links a::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:var(--text);transition:width .25s}
+.nav-links a:hover{color:var(--text)}
+.nav-links a:hover::after,.nav-links a.active::after{width:100%}
+.nav-links a.active{color:var(--text)}
+.nav-cv{padding:7px 18px;border-radius:20px;background:var(--accent);color:var(--accent-fg);font-size:12px;font-weight:500;text-decoration:none;border:none;cursor:none;transition:opacity .2s,transform .2s;display:flex;align-items:center;gap:6px}
+.nav-cv:hover{opacity:.85;transform:translateY(-1px)}
+
+/* HERO */
+.hero{min-height:93vh;background:var(--hero-grad);display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:80px 48px 64px;position:relative;overflow:hidden;transition:background .4s}
+.hero-bg-c{position:absolute;border-radius:50%;opacity:.05;pointer-events:none;transition:background .4s}
+.c1{width:700px;height:700px;background:var(--text);top:-280px;left:-200px}
+.c2{width:500px;height:500px;background:var(--text);bottom:-200px;right:-150px}
+
+/* AVATAR */
+.hero-avatar-wrap{position:relative;margin-bottom:36px}
+.avatar-ring{width:130px;height:130px;border-radius:50%;border:.5px solid var(--border-md);background:var(--surface);display:flex;align-items:center;justify-content:center;margin:0 auto;overflow:hidden;box-shadow:0 12px 48px rgba(0,0,0,0.14),0 0 0 6px var(--surface),0 0 0 7px var(--border-md)}
+.avatar-badge{position:absolute;bottom:4px;right:4px;width:30px;height:30px;border-radius:50%;background:var(--accent);border:2.5px solid var(--bg);display:flex;align-items:center;justify-content:center;transition:background .4s,border-color .4s}
+
+.hero-tag{display:inline-flex;align-items:center;gap:7px;padding:6px 16px;border-radius:20px;border:.5px solid var(--border-md);background:var(--surface);font-size:12px;color:var(--text-3);margin-bottom:22px}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--green);animation:livepulse 2s infinite}
+@keyframes livepulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.8)}}
+
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(40px,7vw,72px);font-weight:400;letter-spacing:-1.5px;line-height:1.08;color:var(--text);margin-bottom:16px}
+.hero h1 em{font-style:italic;color:var(--text-2)}
+
+/* TYPING EFFECT */
+.typing-wrap{font-size:clamp(16px,2.2vw,20px);color:var(--text-2);font-weight:300;margin-bottom:28px;min-height:32px;display:flex;align-items:center;justify-content:center;gap:2px}
+.typing-text{border-right:2px solid var(--text-2);padding-right:3px;animation:blink .75s step-end infinite}
+@keyframes blink{0%,100%{border-color:var(--text-2)}50%{border-color:transparent}}
+
+.hero-chips{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:36px}
+.chip{padding:7px 18px;border-radius:20px;border:.5px solid var(--border-md);background:var(--surface);font-size:12px;color:var(--text-3);transition:all .2s}
+.chip:hover{border-color:var(--text-3);color:var(--text-2)}
+
+.hero-cta{display:flex;gap:12px;justify-content:center;margin-bottom:52px;flex-wrap:wrap}
+.btn-primary{padding:13px 28px;border-radius:30px;background:var(--accent);color:var(--accent-fg);font-size:14px;font-weight:500;text-decoration:none;cursor:none;transition:opacity .2s,transform .2s;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.btn-primary:hover{opacity:.88;transform:translateY(-2px)}
+.btn-secondary{padding:13px 28px;border-radius:30px;background:var(--surface);color:var(--text);font-size:14px;font-weight:400;text-decoration:none;cursor:none;border:.5px solid var(--border-md);transition:all .2s;display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif}
+.btn-secondary:hover{border-color:var(--text-3);transform:translateY(-2px)}
+
+.scroll-cue{display:flex;flex-direction:column;align-items:center;gap:8px;color:var(--text-3);font-size:10px;letter-spacing:1.5px;text-transform:uppercase;animation:bounce 2.5s ease-in-out infinite}
+@keyframes bounce{0%,100%{transform:translateY(0)}50%{transform:translateY(7px)}}
+
+/* SECTION BASE */
+.section{max-width:920px;margin:0 auto;padding:100px 48px;border-top:.5px solid var(--border)}
+.sec-eyebrow{font-size:11px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:var(--text-3);margin-bottom:12px}
+.sec-title{font-family:'DM Serif Display',serif;font-size:clamp(30px,4vw,48px);font-weight:400;letter-spacing:-1px;line-height:1.12;color:var(--text);margin-bottom:16px}
+.sec-desc{font-size:16px;color:var(--text-2);line-height:1.8;max-width:580px;margin-bottom:52px}
+.sec-line{width:44px;height:2.5px;background:var(--accent);margin-bottom:52px;border-radius:2px;transition:background .4s}
+
+/* QUOTE / TAGLINE BANNER */
+.quote-banner{background:var(--surface);border:.5px solid var(--border);border-radius:24px;padding:40px 48px;margin-bottom:0;text-align:center;position:relative;overflow:hidden}
+.quote-banner::before{content:'"';font-family:'DM Serif Display',serif;font-size:160px;color:var(--text);opacity:.04;position:absolute;top:-20px;left:24px;line-height:1;pointer-events:none}
+.quote-text{font-family:'DM Serif Display',serif;font-size:clamp(20px,3vw,28px);font-style:italic;color:var(--text);line-height:1.5;position:relative;z-index:1}
+.quote-author{font-size:13px;color:var(--text-3);margin-top:12px;letter-spacing:.5px}
+
+/* ABOUT */
+.about-quote{font-family:'DM Serif Display',serif;font-size:clamp(20px,2.8vw,28px);line-height:1.55;color:var(--text);margin-bottom:48px}
+.about-quote .muted{color:var(--text-2)}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:48px}
+.stat-box{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:30px 20px;text-align:center;transition:transform .3s,border-color .3s}
+.stat-box:hover{transform:translateY(-5px);border-color:var(--border-md)}
+.stat-n{font-family:'DM Serif Display',serif;font-size:44px;color:var(--text);line-height:1}
+.stat-l{font-size:12px;color:var(--text-3);margin-top:8px}
+.stat-sub{font-size:11px;color:var(--text-3);margin-top:4px;opacity:.7}
+.about-cards{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.about-card{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:28px;transition:transform .3s,border-color .3s}
+.about-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.about-card-ico{font-size:28px;margin-bottom:12px}
+.about-card-title{font-size:15px;font-weight:500;color:var(--text);margin-bottom:6px}
+.about-card-desc{font-size:13px;color:var(--text-2);line-height:1.65}
+
+/* WHY ME */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+.why-card{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:32px;transition:transform .3s,border-color .3s;position:relative;overflow:hidden}
+.why-card:hover{transform:translateY(-5px);border-color:var(--border-md)}
+.why-num{font-family:'DM Serif Display',serif;font-size:64px;color:var(--text);opacity:.06;position:absolute;top:-8px;right:16px;line-height:1;pointer-events:none}
+.why-icon{font-size:26px;margin-bottom:14px}
+.why-title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:8px}
+.why-desc{font-size:13px;color:var(--text-2);line-height:1.7}
+
+/* TIMELINE */
+.timeline{position:relative;padding-left:32px}
+.timeline::before{content:'';position:absolute;left:7px;top:8px;bottom:8px;width:1.5px;background:var(--border-md);border-radius:2px}
+.tl-item{position:relative;margin-bottom:40px}
+.tl-item:last-child{margin-bottom:0}
+.tl-dot{position:absolute;left:-32px;top:4px;width:15px;height:15px;border-radius:50%;background:var(--accent);border:3px solid var(--bg);transition:background .4s,border-color .4s}
+.tl-item.current .tl-dot{box-shadow:0 0 0 4px rgba(0,0,0,0.08);animation:ringpulse 2s infinite}
+@keyframes ringpulse{0%,100%{box-shadow:0 0 0 4px rgba(0,0,0,0.08)}50%{box-shadow:0 0 0 8px rgba(0,0,0,0.04)}}
+.tl-year{font-size:11px;color:var(--text-3);letter-spacing:.8px;margin-bottom:5px}
+.tl-title{font-size:15px;font-weight:500;color:var(--text);margin-bottom:5px}
+.tl-desc{font-size:13px;color:var(--text-2);line-height:1.65}
+.tl-badge{display:inline-block;margin-top:8px;font-size:11px;padding:3px 10px;border-radius:20px;background:var(--gold-bg);color:var(--gold-text)}
+
+/* LANGUAGES */
+.lang-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.lang-card{background:var(--surface);border:.5px solid var(--border);border-radius:18px;padding:24px 20px;text-align:center;transition:transform .3s,border-color .3s}
+.lang-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.lang-flag{font-size:32px;margin-bottom:10px}
+.lang-name{font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px}
+.lang-level{font-size:12px;color:var(--text-3)}
+.lang-dots{display:flex;gap:5px;justify-content:center;margin-top:10px}
+.ldot{width:8px;height:8px;border-radius:50%;background:var(--border-md)}
+.ldot.on{background:var(--accent)}
+
+/* EDUCATION */
+.edu-card{background:var(--surface);border:.5px solid var(--border);border-radius:24px;padding:40px;transition:transform .3s,border-color .3s}
+.edu-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.edu-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;margin-bottom:20px}
+.edu-school{font-size:18px;font-weight:500;color:var(--text)}
+.edu-sub{font-size:13px;color:var(--text-2);margin-top:4px}
+.edu-year-badge{padding:5px 14px;border-radius:20px;background:var(--surface2);border:.5px solid var(--border);font-size:11px;color:var(--text-3);white-space:nowrap;flex-shrink:0}
+.edu-highlights{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:24px 0}
+.edu-hl{background:var(--surface2);border-radius:14px;padding:16px;text-align:center}
+.edu-hl-n{font-size:22px;font-weight:500;color:var(--text)}
+.edu-hl-l{font-size:11px;color:var(--text-3);margin-top:3px}
+.pills{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px}
+.pill{font-size:11px;padding:5px 12px;border-radius:20px;border:.5px solid var(--border);background:var(--pill-bg);color:var(--pill-text)}
+.pill.g{background:var(--gold-bg);color:var(--gold-text)}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px}
+.skill-card{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:24px 20px;transition:transform .3s,border-color .3s}
+.skill-card:hover{transform:translateY(-5px);border-color:var(--border-md)}
+.skill-ico{font-size:26px;margin-bottom:12px}
+.skill-n{font-size:15px;font-weight:500;color:var(--text);margin-bottom:4px}
+.skill-l{font-size:12px;color:var(--text-3);margin-bottom:6px}
+.skill-desc{font-size:12px;color:var(--text-2);line-height:1.6;margin-bottom:14px}
+.bar{height:3px;border-radius:3px;background:var(--border-md);overflow:hidden}
+.fill{height:100%;border-radius:3px;background:var(--accent);width:0;transition:width 1.4s cubic-bezier(.4,0,.2,1),background .4s}
+
+/* CURRENTLY LEARNING */
+.learning-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.learn-card{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:24px;transition:transform .3s,border-color .3s;text-align:center}
+.learn-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.learn-ring{position:relative;width:72px;height:72px;margin:0 auto 16px}
+.learn-ring svg{transform:rotate(-90deg)}
+.learn-ring-bg{fill:none;stroke:var(--border-md);stroke-width:5}
+.learn-ring-fill{fill:none;stroke:var(--accent);stroke-width:5;stroke-linecap:round;transition:stroke-dashoffset 1.4s cubic-bezier(.4,0,.2,1),stroke .4s}
+.learn-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:14px;font-weight:500;color:var(--text)}
+.learn-title{font-size:14px;font-weight:500;color:var(--text);margin-bottom:4px}
+.learn-sub{font-size:12px;color:var(--text-3)}
+
+/* PROJECTS */
+.proj-card{background:var(--surface);border:.5px solid var(--border);border-radius:24px;padding:40px;margin-bottom:16px;transition:transform .3s,border-color .3s}
+.proj-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.proj-tag{display:inline-flex;align-items:center;gap:6px;font-size:11px;padding:5px 14px;border-radius:20px;background:var(--tag-bg);color:var(--tag-text);margin-bottom:14px}
+.proj-title{font-family:'DM Serif Display',serif;font-size:28px;font-weight:400;color:var(--text);margin-bottom:12px}
+.proj-desc{font-size:14px;color:var(--text-2);line-height:1.8;margin-bottom:28px}
+.proj-features{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px}
+.proj-feat{background:var(--surface2);border-radius:14px;padding:16px}
+.proj-feat-title{font-size:13px;font-weight:500;color:var(--text);margin-bottom:4px}
+.proj-feat-desc{font-size:12px;color:var(--text-3);line-height:1.5}
+.proj-status{display:inline-flex;align-items:center;gap:8px;font-size:12px;color:var(--green);padding:7px 16px;border-radius:20px;background:var(--surface2);border:.5px solid var(--border)}
+.pulse{width:7px;height:7px;border-radius:50%;background:var(--green);animation:livepulse 1.8s ease-in-out infinite}
+
+/* CHESS */
+.chess-card{background:var(--surface);border:.5px solid var(--border);border-radius:24px;padding:36px;display:flex;gap:32px;align-items:center;transition:transform .3s,border-color .3s}
+.chess-card:hover{transform:translateY(-4px);border-color:var(--border-md)}
+.chess-board{width:80px;height:80px;flex-shrink:0;display:grid;grid-template-columns:repeat(4,1fr);border-radius:8px;overflow:hidden}
+.chess-sq{aspect-ratio:1}
+.chess-sq.dark-sq{background:var(--text)}
+.chess-sq.light-sq{background:var(--surface2)}
+.chess-info{flex:1}
+.chess-title{font-size:16px;font-weight:500;color:var(--text);margin-bottom:4px}
+.chess-desc{font-size:13px;color:var(--text-2);line-height:1.65;margin-bottom:14px}
+.chess-link{display:inline-flex;align-items:center;gap:6px;font-size:13px;color:var(--text);font-weight:500;text-decoration:none;padding:7px 16px;border-radius:20px;border:.5px solid var(--border-md);background:var(--surface2);transition:all .2s;cursor:none}
+.chess-link:hover{border-color:var(--text-3);transform:translateX(2px)}
+
+/* ACHIEVEMENTS BENTO */
+.bento{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:170px;gap:12px}
+.bento-card{background:var(--surface);border:.5px solid var(--border);border-radius:20px;padding:24px;display:flex;flex-direction:column;justify-content:space-between;transition:transform .3s,border-color .3s;overflow:hidden;position:relative}
+.bento-card:hover{transform:translateY(-5px);border-color:var(--border-md)}
+.bento-card.tall{grid-row:span 2}
+.bento-card.wide{grid-column:span 2}
+.bento-n{font-family:'DM Serif Display',serif;font-size:20px;color:var(--text-3);margin-bottom:8px}
+.bento-t{font-size:14px;font-weight:500;color:var(--text);line-height:1.35}
+.bento-d{font-size:12px;color:var(--text-3);margin-top:4px}
+.bento-ico{font-size:32px;margin-bottom:10px}
+.bento-bg{position:absolute;bottom:-10px;right:-4px;font-family:'DM Serif Display',serif;font-size:88px;color:var(--text);opacity:.04;line-height:1;pointer-events:none}
+
+/* CONTACT */
+.contact-intro{font-size:16px;color:var(--text-2);line-height:1.8;margin-bottom:48px;max-width:540px}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px}
+.con-card{display:flex;align-items:center;gap:16px;padding:22px 20px;background:var(--surface);border:.5px solid var(--border);border-radius:20px;text-decoration:none;color:var(--text);transition:transform .3s,border-color .3s;cursor:none}
+.con-card:hover{transform:translateY(-5px);border-color:var(--border-md)}
+.con-ico{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.con-l{font-size:11px;color:var(--text-3)}
+.con-v{font-size:13px;font-weight:500;color:var(--text);margin-top:2px}
+.con-arr{margin-left:auto;color:var(--text-3);transition:transform .2s}
+.con-card:hover .con-arr{transform:translateX(4px)}
+
+/* FOOTER */
+.footer-wrap{border-top:.5px solid var(--border);max-width:920px;margin:0 auto;padding:52px 48px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
+.footer-brand{font-family:'DM Serif Display',serif;font-size:24px;color:var(--text)}
+.footer-tagline{font-size:13px;color:var(--text-2);font-style:italic;margin-top:4px}
+.footer-copy{font-size:12px;color:var(--text-3);text-align:right}
+
+/* REVEAL ANIMATIONS */
+.reveal{opacity:0;transform:translateY(28px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+.reveal-left{opacity:0;transform:translateX(-28px);transition:opacity .75s cubic-bezier(.4,0,.2,1),transform .75s cubic-bezier(.4,0,.2,1)}
+.reveal-left.visible{opacity:1;transform:translateX(0)}
+.reveal-scale{opacity:0;transform:scale(.95);transition:opacity .7s ease,transform .7s ease}
+.reveal-scale.visible{opacity:1;transform:scale(1)}
+.d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}.d5{transition-delay:.40s}
+
+@media(max-width:700px){
+  nav{padding:0 20px}
+  .nav-links{gap:12px}
+  .nav-links a{font-size:12px}
+  .nav-cv{display:none}
+  .hero,.section{padding-left:24px;padding-right:24px}
+  .hero{padding-top:56px;min-height:auto;padding-bottom:48px}
+  .stats-row,.about-cards,.why-grid,.lang-grid,.learning-grid{grid-template-columns:1fr 1fr}
+  .bento{grid-template-columns:1fr 1fr;grid-auto-rows:140px}
+  .bento-card.wide{grid-column:span 2}
+  .proj-features{grid-template-columns:1fr}
+  .chess-card{flex-direction:column;text-align:center}
+  .edu-highlights{grid-template-columns:repeat(3,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div id="progress-bar"></div>
+<div id="cursor-dot"></div>
+<div id="cursor-ring"></div>
+<div id="cursor-spotlight"></div>
+
+<!-- THEME BAR -->
+<div class="theme-bar">
+  <span class="theme-label">Theme</span>
+  <button class="theme-btn active" onclick="setTheme('default',this)"><span class="tdot" style="background:#111110"></span>Classic</button>
+  <button class="theme-btn" onclick="setTheme('navy',this)"><span class="tdot" style="background:#0d2550"></span>Navy &amp; Gold</button>
+  <button class="theme-btn" onclick="setTheme('mahogany',this)"><span class="tdot" style="background:#7a3618"></span>Mahogany</button>
+  <button class="theme-btn" onclick="setTheme('teal',this)"><span class="tdot" style="background:#0e5e5a"></span>Slate &amp; Teal</button>
+  <button class="theme-btn" onclick="setTheme('dark',this)"><span class="tdot" style="background:#555;outline:1px solid #888;outline-offset:1px"></span>Midnight</button>
+</div>
+
+<!-- NAV -->
+<nav id="main-nav">
+  <a class="nav-brand" href="#">
+    <div class="nav-avatar">
+      <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e0d5"/><stop offset="100%" stop-color="#d4c8b8"/></linearGradient>
+          <linearGradient id="sk1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a2a2e"/><stop offset="100%" stop-color="#1a1a1e"/></linearGradient>
+          <linearGradient id="sn1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8956a"/><stop offset="100%" stop-color="#b07a55"/></linearGradient>
+          <clipPath id="cl1"><circle cx="65" cy="65" r="65"/></clipPath>
+        </defs>
+        <circle cx="65" cy="65" r="65" fill="url(#bg1)"/>
+        <g clip-path="url(#cl1)">
+          <path d="M15 130 Q20 90 38 82 L52 76 L65 85 L78 76 L92 82 Q110 90 115 130Z" fill="url(#sk1)"/>
+          <path d="M55 78 L65 85 L75 78 L72 76 L65 82 L58 76Z" fill="#f0f0ec"/>
+          <path d="M63 78 L65 82 L67 78 L66.5 74 L65 76 L63.5 74Z" fill="#c0392b"/>
+          <path d="M52 76 L58 76 L55 90 L38 85Z" fill="#1a1a1e"/>
+          <path d="M78 76 L72 76 L75 90 L92 85Z" fill="#1a1a1e"/>
+          <path d="M38 82 Q22 88 20 110 L40 112 Q42 95 50 88Z" fill="url(#sk1)"/>
+          <path d="M92 82 Q108 88 110 110 L90 112 Q88 95 80 88Z" fill="url(#sk1)"/>
+          <rect x="59" y="62" width="12" height="16" rx="6" fill="url(#sn1)"/>
+          <ellipse cx="65" cy="46" rx="20" ry="22" fill="url(#sn1)"/>
+          <path d="M45 40 Q46 22 65 20 Q84 22 85 40 Q80 28 65 28 Q50 28 45 40Z" fill="#1a1008"/>
+          <ellipse cx="65" cy="25" rx="18" ry="8" fill="#1a1008"/>
+          <ellipse cx="58" cy="46" rx="3" ry="3.5" fill="#fff"/><ellipse cx="58" cy="46.5" rx="2" ry="2.5" fill="#2a1a0a"/><circle cx="58.8" cy="45.5" r=".8" fill="#fff"/>
+          <ellipse cx="72" cy="46" rx="3" ry="3.5" fill="#fff"/><ellipse cx="72" cy="46.5" rx="2" ry="2.5" fill="#2a1a0a"/><circle cx="72.8" cy="45.5" r=".8" fill="#fff"/>
+          <path d="M55 42 Q58 40.5 61 42" stroke="#1a1008" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M69 42 Q72 40.5 75 42" stroke="#1a1008" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M64 49 Q63 54 61 55 Q64 57 69 55 Q67 54 66 49Z" fill="#a06845" opacity=".6"/>
+          <path d="M59 60 Q65 64 71 60" stroke="#a06845" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="45" cy="48" rx="3" ry="4.5" fill="url(#sn1)"/>
+          <ellipse cx="85" cy="48" rx="3" ry="4.5" fill="url(#sn1)"/>
+        </g>
+      </svg>
+    </div>
+    <span class="nav-name">Naufal</span>
+  </a>
+  <div class="nav-links">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
+    <a class="nav-cv" href="#" onclick="alert('Upload your PDF resume and link it here!')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Download CV
+    </a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-c c1"></div>
+  <div class="hero-bg-c c2"></div>
+  <div class="hero-avatar-wrap reveal">
+    <div class="avatar-ring">
+      <svg viewBox="0 0 130 130" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <linearGradient id="bg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#e8e0d5"/><stop offset="100%" stop-color="#d4c8b8"/></linearGradient>
+          <linearGradient id="sk2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2a2a2e"/><stop offset="100%" stop-color="#1a1a1e"/></linearGradient>
+          <linearGradient id="sn2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#c8956a"/><stop offset="100%" stop-color="#b07a55"/></linearGradient>
+          <clipPath id="cl2"><circle cx="65" cy="65" r="65"/></clipPath>
+        </defs>
+        <circle cx="65" cy="65" r="65" fill="url(#bg2)"/>
+        <g clip-path="url(#cl2)">
+          <path d="M15 130 Q20 90 38 82 L52 76 L65 85 L78 76 L92 82 Q110 90 115 130Z" fill="url(#sk2)"/>
+          <path d="M55 78 L65 85 L75 78 L72 76 L65 82 L58 76Z" fill="#f0f0ec"/>
+          <path d="M63 78 L65 82 L67 78 L66.5 74 L65 76 L63.5 74Z" fill="#c0392b"/>
+          <path d="M52 76 L58 76 L55 90 L38 85Z" fill="#1a1a1e"/>
+          <path d="M78 76 L72 76 L75 90 L92 85Z" fill="#1a1a1e"/>
+          <path d="M38 82 Q22 88 20 110 L40 112 Q42 95 50 88Z" fill="url(#sk2)"/>
+          <path d="M92 82 Q108 88 110 110 L90 112 Q88 95 80 88Z" fill="url(#sk2)"/>
+          <rect x="59" y="62" width="12" height="16" rx="6" fill="url(#sn2)"/>
+          <ellipse cx="65" cy="46" rx="20" ry="22" fill="url(#sn2)"/>
+          <path d="M45 40 Q46 22 65 20 Q84 22 85 40 Q80 28 65 28 Q50 28 45 40Z" fill="#1a1008"/>
+          <ellipse cx="65" cy="25" rx="18" ry="8" fill="#1a1008"/>
+          <ellipse cx="58" cy="46" rx="3" ry="3.5" fill="#fff"/><ellipse cx="58" cy="46.5" rx="2" ry="2.5" fill="#2a1a0a"/><circle cx="58.8" cy="45.5" r=".8" fill="#fff"/>
+          <ellipse cx="72" cy="46" rx="3" ry="3.5" fill="#fff"/><ellipse cx="72" cy="46.5" rx="2" ry="2.5" fill="#2a1a0a"/><circle cx="72.8" cy="45.5" r=".8" fill="#fff"/>
+          <path d="M55 42 Q58 40.5 61 42" stroke="#1a1008" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M69 42 Q72 40.5 75 42" stroke="#1a1008" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <path d="M64 49 Q63 54 61 55 Q64 57 69 55 Q67 54 66 49Z" fill="#a06845" opacity=".6"/>
+          <path d="M59 60 Q65 64 71 60" stroke="#a06845" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+          <ellipse cx="45" cy="48" rx="3" ry="4.5" fill="url(#sn2)"/>
+          <ellipse cx="85" cy="48" rx="3" ry="4.5" fill="url(#sn2)"/>
+        </g>
+      </svg>
+    </div>
+    <div class="avatar-badge">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="color:var(--accent-fg)"><polyline points="20 6 9 17 4 12"/></svg>
+    </div>
+  </div>
+
+  <div class="hero-tag reveal d1"><span class="live-dot"></span>Open to opportunities · 2026</div>
+  <h1 class="reveal d2">Muhamad <em>Naufal</em><br>bin Muhamad Faizal</h1>
+  <div class="typing-wrap reveal d3">
+    <span class="typing-text" id="typing-el"></span>
+  </div>
+  <div class="hero-chips reveal d4">
+    <span class="chip">🎓 SPM Leaver 2025</span>
+    <span class="chip">📍 Shah Alam, Selangor</span>
+    <span class="chip">🏫 MRSM ATM Bera</span>
+    <span class="chip">♟ Active Chess Player</span>
+  </div>
+  <div class="hero-cta reveal d5">
+    <a class="btn-primary" href="#contact">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      Get in Touch
+    </a>
+    <a class="btn-secondary" href="#about">
+      Learn More
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    </a>
+  </div>
+  <div class="scroll-cue reveal d5">
+    <span>Scroll to explore</span>
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+  </div>
+</section>
+
+<!-- QUOTE BANNER -->
+<div style="max-width:920px;margin:0 auto;padding:0 48px">
+  <div class="quote-banner reveal">
+    <div class="quote-text">"If you're tired, learn to rest — not to quit."</div>
+    <div class="quote-author">— Naufal's personal motto</div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section id="about" class="section">
+  <div class="sec-eyebrow reveal">About me</div>
+  <h2 class="sec-title reveal d1">Driven by curiosity,<br><em style="font-style:italic;color:var(--text-2)">powered by AI.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="about-quote reveal d2">Hi, I'm <strong style="font-weight:500">Naufal</strong> — an SPM leaver with a deep passion for <strong style="font-weight:500">artificial intelligence and technology</strong>. <span class="muted">I dream of becoming an AI specialist, building intelligent systems that solve real-world problems and drive Malaysia's digital transformation.</span></p>
+  <div class="stats-row">
+    <div class="stat-box reveal d1"><div class="stat-n">7A+</div><div class="stat-l">SPM Result</div><div class="stat-sub">3A in remaining</div></div>
+    <div class="stat-box reveal d2"><div class="stat-n">4.00</div><div class="stat-l">Perfect PNG</div><div class="stat-sub">Semester 2, 2023</div></div>
+    <div class="stat-box reveal d3"><div class="stat-n">6+</div><div class="stat-l">Awards Won</div><div class="stat-sub">District to National</div></div>
+  </div>
+  <div class="about-cards">
+    <div class="about-card reveal d1"><div class="about-card-ico">🤖</div><div class="about-card-title">AI Enthusiast</div><div class="about-card-desc">Deeply fascinated by machine learning and NLP. Currently building an AI chatbot to transform how Malaysian students learn.</div></div>
+    <div class="about-card reveal d2"><div class="about-card-ico">♟</div><div class="about-card-title">Strategic Thinker</div><div class="about-card-desc">Active competitive chess player since Form 1. Chess sharpened my analytical mindset, patience, and decision-making under pressure.</div></div>
+    <div class="about-card reveal d3"><div class="about-card-ico">🎬</div><div class="about-card-title">Content Creator</div><div class="about-card-desc">Expert video editor running Naufal Academia on YouTube — merging education with creative digital storytelling.</div></div>
+    <div class="about-card reveal d4"><div class="about-card-ico">🌐</div><div class="about-card-title">Tech Builder</div><div class="about-card-desc">Exploring Python, web development, and AI tools to build projects that create real impact for students and researchers.</div></div>
+  </div>
+</section>
+
+<!-- WHY ME -->
+<section id="whyme" class="section">
+  <div class="sec-eyebrow reveal">Why me?</div>
+  <h2 class="sec-title reveal d1">The case for<br><em style="font-style:italic;color:var(--text-2)">choosing Naufal.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="sec-desc reveal d2">Four clear reasons why I stand out as a scholarship and university candidate.</p>
+  <div class="why-grid">
+    <div class="why-card reveal d1">
+      <div class="why-num">1</div>
+      <div class="why-icon">🏆</div>
+      <div class="why-title">Proven Academic Excellence</div>
+      <div class="why-desc">SPM 7A+ 3A with a perfect PNG of 4.00 and Anugerah Pengetua across all five years — demonstrating consistent, top-tier performance under pressure.</div>
+    </div>
+    <div class="why-card reveal d2">
+      <div class="why-num">2</div>
+      <div class="why-icon">🚀</div>
+      <div class="why-title">Real Project Initiative</div>
+      <div class="why-desc">I don't just study AI — I'm actively building it. My AI Educational Chatbot is a real ongoing project, not a class assignment. That initiative sets me apart.</div>
+    </div>
+    <div class="why-card reveal d3">
+      <div class="why-num">3</div>
+      <div class="why-icon">👥</div>
+      <div class="why-title">Leadership at Scale</div>
+      <div class="why-desc">President of both the Chess Club and Student Leaders Council — simultaneously leading 20+ members, organising events, and mentoring juniors in 2024.</div>
+    </div>
+    <div class="why-card reveal d4">
+      <div class="why-num">4</div>
+      <div class="why-icon">🌍</div>
+      <div class="why-title">Purpose-Driven Vision</div>
+      <div class="why-desc">My goal isn't just a degree — it's to contribute to Malaysia's AI ecosystem. Every skill I learn is tied to a clear, national purpose and long-term mission.</div>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section id="timeline" class="section">
+  <div class="sec-eyebrow reveal">My Journey</div>
+  <h2 class="sec-title reveal d1">Five years of<br><em style="font-style:italic;color:var(--text-2)">growth.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <div class="timeline reveal d2">
+    <div class="tl-item reveal d1">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2021</div>
+      <div class="tl-title">Enrolled at MRSM ATM Bera</div>
+      <div class="tl-desc">Began Form 1 at one of Malaysia's prestigious residential science schools. Joined the chess club and discovered a passion for strategic thinking and competition.</div>
+    </div>
+    <div class="tl-item reveal d2">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2022 – 2023</div>
+      <div class="tl-title">Academic Awards &amp; First Competitions</div>
+      <div class="tl-desc">Achieved Anugerah Pengetua consecutively. Won 2nd place at MSSD Chess Tournament (2023) and participated in MASUL Mathematics League. PNG 4.00 in Sem 2, 2023.</div>
+      <span class="tl-badge">Anugerah Pengetua</span>
+    </div>
+    <div class="tl-item reveal d3">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2024</div>
+      <div class="tl-title">President &amp; National Stage</div>
+      <div class="tl-desc">Elected President of Chess Club and Student Leaders Council simultaneously. Led team to Runner-Up at MRSM National Chess Championship and Runner-Up at Stemboree National. Bronze at ICTC 2.0.</div>
+      <span class="tl-badge">National Level</span>
+    </div>
+    <div class="tl-item reveal d4">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2025</div>
+      <div class="tl-title">SPM — Straight As &amp; AI Chatbot</div>
+      <div class="tl-desc">Completed SPM with 7A+ 3A. Began building AI Educational Chatbot. Participated in MASUL 2025 and won 2nd place at MSSD Chess again.</div>
+      <span class="tl-badge">7A+ 3A</span>
+    </div>
+    <div class="tl-item current reveal d5">
+      <div class="tl-dot"></div>
+      <div class="tl-year">2026 — Now</div>
+      <div class="tl-title">Seeking University &amp; Scholarship</div>
+      <div class="tl-desc">Actively applying for scholarships and university placement in Computer Science / AI. Continuing development of AI chatbot and expanding technical skills daily.</div>
+      <span class="tl-badge">Open to Opportunities</span>
+    </div>
+  </div>
+</section>
+
+<!-- LANGUAGES -->
+<section id="languages" class="section">
+  <div class="sec-eyebrow reveal">Languages &amp; Personality</div>
+  <h2 class="sec-title reveal d1">How I<br><em style="font-style:italic;color:var(--text-2)">communicate.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <div class="lang-grid" style="margin-bottom:48px">
+    <div class="lang-card reveal d1">
+      <div class="lang-flag">🇲🇾</div>
+      <div class="lang-name">Bahasa Melayu</div>
+      <div class="lang-level">Native · Fluent</div>
+      <div class="lang-dots"><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span></div>
+    </div>
+    <div class="lang-card reveal d2">
+      <div class="lang-flag">🇬🇧</div>
+      <div class="lang-name">English</div>
+      <div class="lang-level">CEFR B2 · Fluent</div>
+      <div class="lang-dots"><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span><span class="ldot"></span></div>
+    </div>
+    <div class="lang-card reveal d3">
+      <div class="lang-flag">🇸🇦</div>
+      <div class="lang-name">Arabic</div>
+      <div class="lang-level">A+ SPM · Basic</div>
+      <div class="lang-dots"><span class="ldot on"></span><span class="ldot on"></span><span class="ldot on"></span><span class="ldot"></span><span class="ldot"></span></div>
+    </div>
+  </div>
+</section>
+
+<!-- EDUCATION -->
+<section id="education" class="section">
+  <div class="sec-eyebrow reveal">Education</div>
+  <h2 class="sec-title reveal d1">Academic<br><em style="font-style:italic;color:var(--text-2)">excellence.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="sec-desc reveal d2">Five years of rigorous training at one of Malaysia's most prestigious residential science schools, graduating with outstanding results.</p>
+  <div class="edu-card reveal d2">
+    <div class="edu-top">
+      <div><div class="edu-school">Maktab Rendah Sains MARA ATM Bera</div><div class="edu-sub">Pahang, Malaysia — Residential Science School (MRSM)</div></div>
+      <div class="edu-year-badge">2021 – 2025</div>
+    </div>
+    <div class="edu-highlights">
+      <div class="edu-hl"><div class="edu-hl-n">7A+</div><div class="edu-hl-l">SPM Score</div></div>
+      <div class="edu-hl"><div class="edu-hl-n">4.00</div><div class="edu-hl-l">Perfect PNG</div></div>
+      <div class="edu-hl"><div class="edu-hl-n">B2</div><div class="edu-hl-l">CEFR English</div></div>
+    </div>
+    <p style="font-size:14px;color:var(--text-2);line-height:1.75">Recipient of <strong style="font-weight:500">Anugerah Pengetua</strong> for maintaining CGPA above 3.50 from Form 1 through Form 5. Achieved perfect PNG 4.00 in Semester 2, 2023. Completed Lisan Bahasa Melayu with Cemerlang rating.</p>
+    <div class="pills">
+      <span class="pill g">Bahasa Melayu A+</span><span class="pill g">Pendidikan Islam A+</span><span class="pill g">Sejarah A+</span><span class="pill g">Matematik A+</span><span class="pill g">Bahasa Arab A+</span><span class="pill g">Mat. Tambahan A+</span><span class="pill g">Fizik A+</span><span class="pill">Bahasa Inggeris A</span><span class="pill">Kimia A</span><span class="pill">Biologi A</span>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills" class="section">
+  <div class="sec-eyebrow reveal">Skills</div>
+  <h2 class="sec-title reveal d1">Tools &amp;<br><em style="font-style:italic;color:var(--text-2)">capabilities.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="sec-desc reveal d2">A blend of technical foundations and creative expertise, with a strong focus on AI tools and digital content creation.</p>
+  <div class="skills-grid" style="margin-bottom:48px">
+    <div class="skill-card reveal d1"><div class="skill-ico">🐍</div><div class="skill-n">Python</div><div class="skill-l">Basic — actively learning</div><div class="skill-desc">Working with fundamentals, data types, loops, and beginning to explore NumPy and scikit-learn for AI projects.</div><div class="bar"><div class="fill" data-w="30"></div></div></div>
+    <div class="skill-card reveal d2"><div class="skill-ico">🌐</div><div class="skill-n">HTML / Web Dev</div><div class="skill-l">Basic foundations</div><div class="skill-desc">Understanding HTML structure, basic CSS, and how the web works as part of broader tech exploration and project building.</div><div class="bar"><div class="fill" data-w="25"></div></div></div>
+    <div class="skill-card reveal d3"><div class="skill-ico">🎬</div><div class="skill-n">Video Editing</div><div class="skill-l">Expert level</div><div class="skill-desc">Advanced Adobe Premiere Pro and CapCut skills — creating polished educational content for YouTube with professional-level production.</div><div class="bar"><div class="fill" data-w="90"></div></div></div>
+    <div class="skill-card reveal d4"><div class="skill-ico">🤖</div><div class="skill-n">AI &amp; Machine Learning</div><div class="skill-l">Actively exploring</div><div class="skill-desc">Studying ML concepts, neural networks, and NLP fundamentals. Applying knowledge to the AI educational chatbot project.</div><div class="bar"><div class="fill" data-w="35"></div></div></div>
+    <div class="skill-card reveal d1"><div class="skill-ico">🎨</div><div class="skill-n">Canva</div><div class="skill-l">Proficient</div><div class="skill-desc">Designing thumbnails, presentations, and infographics. Used regularly for YouTube content and academic projects.</div><div class="bar"><div class="fill" data-w="75"></div></div></div>
+    <div class="skill-card reveal d2"><div class="skill-ico">📡</div><div class="skill-n">OBS / Streamlabs</div><div class="skill-l">Proficient</div><div class="skill-desc">Setting up live streams, scene management, and broadcasting tools for online events, recordings, and content workflows.</div><div class="bar"><div class="fill" data-w="65"></div></div></div>
+  </div>
+
+  <!-- CURRENTLY LEARNING -->
+  <div class="sec-eyebrow reveal" style="margin-bottom:20px">Currently Learning</div>
+  <div class="learning-grid">
+    <div class="learn-card reveal d1">
+      <div class="learn-ring">
+        <svg width="72" height="72" viewBox="0 0 72 72"><circle class="learn-ring-bg" cx="36" cy="36" r="30"/><circle class="learn-ring-fill" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5" data-pct="40"/></svg>
+        <div class="learn-pct">40%</div>
+      </div>
+      <div class="learn-title">Python for AI</div>
+      <div class="learn-sub">NumPy, Pandas, scikit-learn</div>
+    </div>
+    <div class="learn-card reveal d2">
+      <div class="learn-ring">
+        <svg width="72" height="72" viewBox="0 0 72 72"><circle class="learn-ring-bg" cx="36" cy="36" r="30"/><circle class="learn-ring-fill" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5" data-pct="30"/></svg>
+        <div class="learn-pct">30%</div>
+      </div>
+      <div class="learn-title">Machine Learning</div>
+      <div class="learn-sub">Core concepts &amp; algorithms</div>
+    </div>
+    <div class="learn-card reveal d3">
+      <div class="learn-ring">
+        <svg width="72" height="72" viewBox="0 0 72 72"><circle class="learn-ring-bg" cx="36" cy="36" r="30"/><circle class="learn-ring-fill" cx="36" cy="36" r="30" stroke-dasharray="188.5" stroke-dashoffset="188.5" data-pct="25"/></svg>
+        <div class="learn-pct">25%</div>
+      </div>
+      <div class="learn-title">NLP Fundamentals</div>
+      <div class="learn-sub">Text processing &amp; chatbot dev</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects" class="section">
+  <div class="sec-eyebrow reveal">Projects</div>
+  <h2 class="sec-title reveal d1">What I'm<br><em style="font-style:italic;color:var(--text-2)">building.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="sec-desc reveal d2">Turning passion into real products. Focused on using AI to solve meaningful problems in education.</p>
+  <div class="proj-card reveal d2">
+    <span class="proj-tag"><span class="pulse"></span> AI &amp; Education · Ongoing</span>
+    <div class="proj-title">AI Educational Chatbot</div>
+    <div class="proj-desc">An intelligent chatbot designed to assist students and researchers with exam preparation and academic learning. Leveraging natural language processing to understand student queries and provide personalised, contextual responses — from subject notes to Q&amp;A and study planning. Built with the goal of democratising quality education through accessible AI tools in Malaysia.</div>
+    <div class="proj-features">
+      <div class="proj-feat"><div class="proj-feat-title">📚 Smart Q&amp;A</div><div class="proj-feat-desc">Subject-specific answers powered by NLP models</div></div>
+      <div class="proj-feat"><div class="proj-feat-title">🧠 Personalised Learning</div><div class="proj-feat-desc">Adapts responses to student's pace and level</div></div>
+      <div class="proj-feat"><div class="proj-feat-title">📝 Notes Generation</div><div class="proj-feat-desc">Auto-generates revision summaries on demand</div></div>
+    </div>
+    <div class="proj-status"><span class="pulse"></span> Actively in development — 2025/2026</div>
+  </div>
+
+  <!-- CHESS CARD -->
+  <div class="chess-card reveal" style="margin-top:16px">
+    <div class="chess-board">
+      <div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div>
+      <div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div>
+      <div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div>
+      <div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div><div class="chess-sq light-sq"></div><div class="chess-sq dark-sq"></div>
+    </div>
+    <div class="chess-info">
+      <div class="chess-title">♟ Active Chess Player — Chess.com</div>
+      <div class="chess-desc">Competing since Form 1, winning at district and national levels. Chess represents my strategic thinking, patience under pressure, and love for calculated problem solving — all qualities directly transferable to AI and engineering.</div>
+      <a class="chess-link" href="https://www.chess.com/member/nauf_fzl" target="_blank" rel="noopener">
+        View Chess.com Profile
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ACHIEVEMENTS -->
+<section id="achievements" class="section">
+  <div class="sec-eyebrow reveal">Achievements</div>
+  <h2 class="sec-title reveal d1">Recognition &amp;<br><em style="font-style:italic;color:var(--text-2)">milestones.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="sec-desc reveal d2">From the chess board to the national stage — a track record of competing, leading, and winning.</p>
+  <div class="bento">
+    <div class="bento-card tall reveal d1">
+      <div><div class="bento-ico">♟</div><div class="bento-t">2nd Place — MSSD Chess Tournament</div><div class="bento-d" style="margin-top:10px;font-size:12px;color:var(--text-2);line-height:1.65">Active player since Form 1. Competed at district level in both 2023 &amp; 2025, placing 2nd — consistent performance over multiple years.</div></div>
+      <div class="bento-d">District Level · 2023 &amp; 2025</div>
+      <div class="bento-bg">♟</div>
+    </div>
+    <div class="bento-card reveal d2"><div class="bento-n">02</div><div class="bento-t">Runner-Up — MRSM National Chess Championship</div><div class="bento-d">Serting · National Level</div></div>
+    <div class="bento-card reveal d3"><div class="bento-n">03</div><div class="bento-t">Runner-Up — MRSM Stemboree</div><div class="bento-d">National STEM Competition</div></div>
+    <div class="bento-card wide reveal d2">
+      <div><div class="bento-ico">🏆</div><div class="bento-t">Bronze Award — ICTC 2.0 (NUTRICHARGE)</div><div class="bento-d" style="margin-top:6px;font-size:12px;color:var(--text-2)">Innocreative Technology Challenge — presented a nutrition-tech innovation project. Competed against teams nationwide at university level.</div></div>
+    </div>
+    <div class="bento-card reveal d3"><div class="bento-n">05</div><div class="bento-t">Participant — MASUL</div><div class="bento-d">Mathematics Supreme League · 2023 &amp; 2025</div></div>
+    <div class="bento-card wide reveal d4">
+      <div><div class="bento-ico">👑</div><div class="bento-t">President — Chess Club &amp; Student Leaders Council (2024)</div><div class="bento-d" style="margin-top:6px;font-size:12px;color:var(--text-2)">Led 20+ members simultaneously. Organised tournaments, mentored junior players, and coordinated whole-school student leadership programs.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact" class="section">
+  <div class="sec-eyebrow reveal">Contact</div>
+  <h2 class="sec-title reveal d1">Let's<br><em style="font-style:italic;color:var(--text-2)">connect.</em></h2>
+  <div class="sec-line reveal d2"></div>
+  <p class="contact-intro reveal d2">I'm open to scholarship opportunities, university applications, tech collaborations, and content partnerships. Whether you're a recruiter, researcher, or fellow student — I'd love to connect.</p>
+  <div class="contact-grid">
+    <a class="con-card reveal d1" href="mailto:naufal.faizal@gmail.com">
+      <div class="con-ico" style="background:#EA4335"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="2" stroke="white" stroke-width="1.5" fill="none"/><path d="M2 6l10 7 10-7" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+      <div><div class="con-l">Gmail</div><div class="con-v">naufal.faizal@gmail.com</div></div>
+      <div class="con-arr">→</div>
+    </a>
+    <a class="con-card reveal d2" href="tel:+60166239401">
+      <div class="con-ico" style="background:#34C759"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M6.6 10.8c1.4 2.8 3.8 5.1 6.6 6.6l2.2-2.2c.3-.3.7-.4 1-.2 1.1.4 2.3.6 3.6.6.6 0 1 .4 1 1V20c0 .6-.4 1-1 1-9.4 0-17-7.6-17-17 0-.6.4-1 1-1h3.5c.6 0 1 .4 1 1 0 1.3.2 2.5.6 3.6.1.3 0 .7-.2 1L6.6 10.8z" fill="white"/></svg></div>
+      <div><div class="con-l">Phone</div><div class="con-v">016-623 9401</div></div>
+      <div class="con-arr">→</div>
+    </a>
+    <a class="con-card reveal d3" href="https://www.youtube.com/@NaufalAcademia" target="_blank" rel="noopener">
+      <div class="con-ico" style="background:#FF0000"><svg width="22" height="22" viewBox="0 0 24 24" fill="white"><path d="M21.8 8s-.2-1.4-.8-2c-.8-.8-1.6-.8-2-.9C16.2 5 12 5 12 5s-4.2 0-7 .1c-.4.1-1.2.1-2 .9-.6.6-.8 2-.8 2S2 9.6 2 11.2v1.5c0 1.6.2 3.2.2 3.2s.2 1.4.8 2c.8.8 1.8.8 2.2.8C6.8 19 12 19 12 19s4.2 0 7-.2c.4-.1 1.2-.1 2-.9.6-.6.8-2 .8-2s.2-1.6.2-3.2v-1.5C22 9.6 21.8 8 21.8 8zM9.7 14.5V9.4l5.3 2.6-5.3 2.5z"/></svg></div>
+      <div><div class="con-l">YouTube</div><div class="con-v">Naufal Academia</div></div>
+      <div class="con-arr">→</div>
+    </a>
+    <a class="con-card reveal d4" href="https://www.instagram.com/nauf_fzl" target="_blank" rel="noopener">
+      <div class="con-ico" style="background:linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888)"><svg width="22" height="22" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" stroke="white" stroke-width="2"/><circle cx="12" cy="12" r="5" stroke="white" stroke-width="2"/><circle cx="17.5" cy="6.5" r="1.5" fill="white"/></svg></div>
+      <div><div class="con-l">Instagram</div><div class="con-v">@nauf_fzl</div></div>
+      <div class="con-arr">→</div>
+    </a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<div class="footer-wrap">
+  <div>
+    <div class="footer-brand">Naufal</div>
+    <div class="footer-tagline">"If you're tired, learn to rest — not to quit."</div>
+  </div>
+  <div class="footer-copy">
+    <div>&copy; 2026 Muhamad Naufal bin Muhamad Faizal</div>
+    <div style="margin-top:4px">Shah Alam, Selangor · Malaysia</div>
+  </div>
+</div>
+
+<script>
+// SCROLL PROGRESS
+const bar=document.getElementById('progress-bar');
+window.addEventListener('scroll',()=>{
+  const pct=(window.scrollY/(document.body.scrollHeight-window.innerHeight))*100;
+  bar.style.width=pct+'%';
+},{passive:true});
+
+// CUSTOM CURSOR
+const dot=document.getElementById('cursor-dot');
+const ring=document.getElementById('cursor-ring');
+const spotlight=document.getElementById('cursor-spotlight');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{
+  mx=e.clientX;my=e.clientY;
+  dot.style.left=mx+'px';dot.style.top=my+'px';
+  spotlight.style.left=mx+'px';spotlight.style.top=my+'px';
+});
+function animRing(){
+  rx+=(mx-rx)*.12;ry+=(my-ry)*.12;
+  ring.style.left=rx+'px';ring.style.top=ry+'px';
+  requestAnimationFrame(animRing);
+}animRing();
+document.querySelectorAll('a,button,.theme-btn,.about-card,.stat-box,.skill-card,.bento-card,.why-card,.con-card,.proj-card,.chess-card,.learn-card,.lang-card,.tl-item').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.width='54px';ring.style.height='54px';ring.style.opacity='.25';dot.style.transform='translate(-50%,-50%) scale(1.5)'});
+  el.addEventListener('mouseleave',()=>{ring.style.width='36px';ring.style.height='36px';ring.style.opacity='.4';dot.style.transform='translate(-50%,-50%) scale(1)'});
+});
+
+// TYPING EFFECT
+const phrases=['Aspiring AI Specialist','Future AI Engineer','Chess National Competitor','Content Creator · Naufal Academia','Problem Solver & Builder','SPM Straight As Graduate'];
+let pi=0,ci=0,deleting=false,pause=0;
+const el=document.getElementById('typing-el');
+function type(){
+  if(pause>0){pause--;setTimeout(type,50);return}
+  const word=phrases[pi];
+  if(!deleting){
+    el.textContent=word.slice(0,++ci);
+    if(ci===word.length){deleting=true;pause=40;setTimeout(type,80);return}
+  }else{
+    el.textContent=word.slice(0,--ci);
+    if(ci===0){deleting=false;pi=(pi+1)%phrases.length;pause=8;}
+  }
+  setTimeout(type,deleting?45:90);
+}type();
+
+// THEME
+function setTheme(t,btn){
+  document.documentElement.removeAttribute('data-theme');
+  if(t!=='default')document.documentElement.setAttribute('data-theme',t);
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// SCROLL REVEAL + skill bars + learning rings
+const obs=new IntersectionObserver((entries)=>{
+  entries.forEach((e,i)=>{
+    if(e.isIntersecting){
+      setTimeout(()=>{
+        e.target.classList.add('visible');
+        e.target.querySelectorAll('.fill[data-w]').forEach(f=>{f.style.width=f.dataset.w+'%'});
+        e.target.querySelectorAll('.learn-ring-fill[data-pct]').forEach(r=>{
+          const c=188.5,pct=parseInt(r.dataset.pct);
+          r.style.strokeDashoffset=c-(c*pct/100);
+        });
+      },i*65);
+    }
+  });
+},{threshold:0.07});
+document.querySelectorAll('.reveal,.reveal-left,.reveal-scale').forEach(el=>obs.observe(el));
+
+// ACTIVE NAV
+const secs=document.querySelectorAll('section[id]');
+const links=document.querySelectorAll('.nav-links a[href^="#"]');
+window.addEventListener('scroll',()=>{
+  let cur='';
+  secs.forEach(s=>{if(window.scrollY>=s.offsetTop-130)cur=s.id});
+  links.forEach(a=>{a.classList.remove('active');if(a.getAttribute('href')==='#'+cur)a.classList.add('active')});
+},{passive:true});
+</script>
+</body>
+</html>
