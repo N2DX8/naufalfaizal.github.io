@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Naufal — Aspiring AI Specialist</title>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #f9f9f7;
+      --surface: #ffffff;
+      --border: rgba(0,0,0,0.08);
+      --border-strong: rgba(0,0,0,0.14);
+      --text: #111110;
+      --text-2: #555552;
+      --text-3: #999994;
+      --accent: #111110;
+      --green: #3B6D11;
+      --radius: 14px;
+      --radius-sm: 8px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* NAV */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(249,249,247,0.88);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 40px; height: 52px;
+    }
+    .nav-logo { font-size: 15px; font-weight: 500; letter-spacing: -0.2px; }
+    .nav-links { display: flex; gap: 28px; }
+    .nav-links a {
+      font-size: 13px; color: var(--text-2); text-decoration: none;
+      transition: color 0.2s; padding: 4px 0;
+    }
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    .hero {
+      max-width: 760px; margin: 0 auto;
+      padding: 96px 40px 80px;
+      text-align: center;
+    }
+    .avatar {
+      width: 96px; height: 96px; border-radius: 50%;
+      background: var(--surface);
+      border: 0.5px solid var(--border-strong);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 28px;
+      font-family: 'DM Serif Display', serif;
+      font-size: 30px; color: var(--text-2);
+      letter-spacing: 1px;
+    }
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(38px, 6vw, 60px);
+      font-weight: 400;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      color: var(--text);
+    }
+    .hero h1 em { font-style: italic; color: var(--text-2); }
+    .hero-sub {
+      margin-top: 10px; font-size: 17px;
+      color: var(--text-2); font-weight: 300;
+    }
+    .hero-badge {
+      display: inline-block; margin-top: 20px;
+      padding: 6px 16px; border-radius: 20px;
+      border: 0.5px solid var(--border-strong);
+      background: var(--surface);
+      font-size: 12px; color: var(--text-3);
+      letter-spacing: 0.4px;
+    }
+    .hero-divider {
+      width: 40px; height: 1px; background: var(--border-strong);
+      margin: 40px auto 0;
+    }
+
+    /* SECTIONS */
+    .section {
+      max-width: 760px; margin: 0 auto;
+      padding: 72px 40px;
+      border-top: 0.5px solid var(--border);
+    }
+    .section-label {
+      font-size: 10px; font-weight: 500;
+      letter-spacing: 1.8px; text-transform: uppercase;
+      color: var(--text-3); margin-bottom: 36px;
+    }
+
+    /* ABOUT */
+    .about-text {
+      font-family: 'DM Serif Display', serif;
+      font-size: clamp(22px, 3vw, 28px);
+      font-weight: 400; line-height: 1.5;
+      color: var(--text);
+    }
+    .about-text .muted { color: var(--text-2); }
+
+    /* EDUCATION */
+    .edu-block { padding: 28px 0; border-bottom: 0.5px solid var(--border); }
+    .edu-block:last-child { border-bottom: none; }
+    .edu-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; }
+    .edu-school { font-size: 16px; font-weight: 500; }
+    .edu-year { font-size: 12px; color: var(--text-3); white-space: nowrap; margin-top: 3px; }
+    .edu-detail { font-size: 14px; color: var(--text-2); margin-top: 8px; line-height: 1.6; }
+    .pills { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+    .pill {
+      font-size: 11px; padding: 4px 11px;
+      border-radius: 20px; border: 0.5px solid var(--border-strong);
+      background: var(--bg); color: var(--text-2);
+    }
+
+    /* SKILLS */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+    .skill-card {
+      background: var(--surface); border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm); padding: 18px 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+    .skill-name { font-size: 14px; font-weight: 500; }
+    .skill-level { font-size: 12px; color: var(--text-3); margin-top: 3px; }
+
+    /* PROJECTS */
+    .project-card {
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius); padding: 28px;
+      margin-bottom: 12px;
+      transition: border-color 0.2s;
+    }
+    .project-card:hover { border-color: var(--border-strong); }
+    .project-tag {
+      display: inline-block; font-size: 11px;
+      padding: 3px 10px; border-radius: 20px;
+      background: var(--bg); border: 0.5px solid var(--border);
+      color: var(--text-3); margin-bottom: 12px;
+    }
+    .project-title { font-size: 18px; font-weight: 500; letter-spacing: -0.2px; }
+    .project-desc { font-size: 14px; color: var(--text-2); margin-top: 8px; line-height: 1.65; }
+    .project-status {
+      display: inline-flex; align-items: center; gap: 6px;
+      font-size: 12px; color: var(--green); margin-top: 16px;
+    }
+    .pulse {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green);
+      animation: pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.4;transform:scale(0.85)} }
+
+    /* ACHIEVEMENTS */
+    .ach-list { display: flex; flex-direction: column; gap: 0; }
+    .ach-row {
+      display: flex; gap: 20px; align-items: flex-start;
+      padding: 20px 0; border-bottom: 0.5px solid var(--border);
+    }
+    .ach-row:last-child { border-bottom: none; }
+    .ach-num {
+      font-family: 'DM Serif Display', serif;
+      font-size: 26px; color: var(--text-3);
+      min-width: 32px; line-height: 1.2;
+    }
+    .ach-title { font-size: 15px; font-weight: 500; }
+    .ach-desc { font-size: 13px; color: var(--text-2); margin-top: 3px; }
+
+    /* CONTACT */
+    .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+    .contact-card {
+      display: flex; align-items: center; gap: 14px;
+      padding: 16px 18px;
+      background: var(--surface);
+      border: 0.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      text-decoration: none; color: var(--text);
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-card:hover { border-color: var(--border-strong); transform: translateY(-2px); }
+    .contact-icon {
+      width: 36px; height: 36px; border-radius: 9px;
+      background: var(--bg); border: 0.5px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 500; color: var(--text-2);
+      flex-shrink: 0;
+    }
+    .contact-label { font-size: 11px; color: var(--text-3); }
+    .contact-val { font-size: 13px; font-weight: 500; margin-top: 1px; }
+
+    /* FOOTER */
+    footer {
+      border-top: 0.5px solid var(--border);
+      text-align: center; padding: 36px 40px;
+      font-size: 12px; color: var(--text-3);
+    }
+
+    /* ANIMATIONS */
+    .fade-up {
+      opacity: 0; transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 0 20px; }
+      .nav-links { gap: 16px; }
+      .hero, .section { padding-left: 24px; padding-right: 24px; }
+      .hero { padding-top: 64px; padding-bottom: 56px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav-logo">Naufal</div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#education">Education</a>
+      <a href="#skills">Skills</a>
+      <a href="#projects">Projects</a>
+      <a href="#achievements">Achievements</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <section class="hero fade-up">
+    <div class="avatar">MN</div>
+    <h1>Muhamad <em>Naufal</em><br>bin Muhamad Faizal</h1>
+    <p class="hero-sub">Aspiring AI Specialist &amp; Tech Enthusiast</p>
+    <span class="hero-badge">Shah Alam, Selangor &nbsp;·&nbsp; Malaysia</span>
+    <div class="hero-divider"></div>
+  </section>
+
+  <section id="about" class="section fade-up">
+    <div class="section-label">About me</div>
+    <p class="about-text">
+      Hi, I'm <strong style="font-weight:500">Naufal</strong> — an SPM leaver with a deep passion for
+      <strong style="font-weight:500">artificial intelligence and technology</strong>.
+      <span class="muted">I dream of becoming an AI specialist, building intelligent systems
+      that create real impact for Malaysia's digital future.</span>
+    </p>
+  </section>
+
+  <section id="education" class="section fade-up">
+    <div class="section-label">Education</div>
+    <div class="edu-block">
+      <div class="edu-header">
+        <div class="edu-school">Maktab Rendah Sains MARA ATM Bera, Pahang</div>
+        <div class="edu-year">2021 – 2025</div>
+      </div>
+      <div class="edu-detail">
+        SPM: <strong style="font-weight:500">7A+ 3A</strong> — Straight As across 10 subjects.
+        Recipient of Anugerah Pengetua (CGPA above 3.50, Form 1–5).
+        Achieved perfect PNG 4.00 in Semester 2, 2023.
+      </div>
+      <div class="pills">
+        <span class="pill">Bahasa Melayu A+</span>
+        <span class="pill">Bahasa Inggeris A</span>
+        <span class="pill">Pendidikan Islam A+</span>
+        <span class="pill">Sejarah A+</span>
+        <span class="pill">Matematik A+</span>
+        <span class="pill">Bahasa Arab A+</span>
+        <span class="pill">Mat. Tambahan A+</span>
+        <span class="pill">Fizik A+</span>
+        <span class="pill">Kimia A</span>
+        <span class="pill">Biologi A</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="skills" class="section fade-up">
+    <div class="section-label">Skills</div>
+    <div class="skills-grid">
+      <div class="skill-card"><div class="skill-name">Python</div><div class="skill-level">Basic — learning</div></div>
+      <div class="skill-card"><div class="skill-name">HTML / Web</div><div class="skill-level">Basic foundations</div></div>
+      <div class="skill-card"><div class="skill-name">Video Editing</div><div class="skill-level">Expert — Premiere, CapCut</div></div>
+      <div class="skill-card"><div class="skill-name">AI &amp; ML</div><div class="skill-level">Exploring concepts</div></div>
+      <div class="skill-card"><div class="skill-name">Canva</div><div class="skill-level">Design &amp; content creation</div></div>
+      <div class="skill-card"><div class="skill-name">OBS / Streamlabs</div><div class="skill-level">Streaming tools</div></div>
+    </div>
+  </section>
+
+  <section id="projects" class="section fade-up">
+    <div class="section-label">Projects</div>
+    <div class="project-card">
+      <span class="project-tag">AI &amp; Education</span>
+      <div class="project-title">AI Educational Chatbot</div>
+      <div class="project-desc">
+        An intelligent chatbot designed to assist students with exam preparation.
+        Provides personalized notes, Q&amp;A support, and learning assistance —
+        powered by machine learning and natural language processing concepts.
+        Built to support Malaysian students and researchers.
+      </div>
+      <div class="project-status"><span class="pulse"></span> Ongoing project</div>
+    </div>
+  </section>
+
+  <section id="achievements" class="section fade-up">
+    <div class="section-label">Achievements</div>
+    <div class="ach-list">
+      <div class="ach-row">
+        <div class="ach-num">01</div>
+        <div>
+          <div class="ach-title">2nd Place — MSSD Chess Tournament</div>
+          <div class="ach-desc">District level — 2023 &amp; 2025. Active competitive player.</div>
+        </div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-num">02</div>
+        <div>
+          <div class="ach-title">Runner-Up — MRSM National Chess Championship</div>
+          <div class="ach-desc">Serting — national level competition.</div>
+        </div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-num">03</div>
+        <div>
+          <div class="ach-title">Runner-Up — MRSM Stemboree</div>
+          <div class="ach-desc">National level STEM competition.</div>
+        </div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-num">04</div>
+        <div>
+          <div class="ach-title">Bronze Award — ICTC 2.0 (NUTRICHARGE)</div>
+          <div class="ach-desc">Innocreative Technology Challenge.</div>
+        </div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-num">05</div>
+        <div>
+          <div class="ach-title">Participant — Mathematics Supreme League (MASUL)</div>
+          <div class="ach-desc">2023 &amp; 2025.</div>
+        </div>
+      </div>
+      <div class="ach-row">
+        <div class="ach-num">06</div>
+        <div>
+          <div class="ach-title">President — Chess Club &amp; Student Leaders Council</div>
+          <div class="ach-desc">Led 20+ members, organized tournaments &amp; student leadership programs (2024).</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="section fade-up">
+    <div class="section-label">Contact</div>
+    <div class="contact-grid">
+      <a class="contact-card" href="mailto:naufal.faizal@gmail.com">
+        <div class="contact-icon">@</div>
+        <div><div class="contact-label">Email</div><div class="contact-val">naufal.faizal@gmail.com</div></div>
+      </a>
+      <a class="contact-card" href="tel:+60166239401">
+        <div class="contact-icon">tel</div>
+        <div><div class="contact-label">Phone</div><div class="contact-val">016-623 9401</div></div>
+      </a>
+      <a class="contact-card" href="https://www.youtube.com/@NaufalAcademia" target="_blank" rel="noopener">
+        <div class="contact-icon">YT</div>
+        <div><div class="contact-label">YouTube</div><div class="contact-val">Naufal Academia</div></div>
+      </a>
+      <a class="contact-card" href="https://www.instagram.com/nauf_fzl" target="_blank" rel="noopener">
+        <div class="contact-icon">IG</div>
+        <div><div class="contact-label">Instagram</div><div class="contact-val">@nauf_fzl</div></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    &copy; 2026 Muhamad Naufal bin Muhamad Faizal
+  </footer>
+
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  </script>
+
+</body>
+</html>
