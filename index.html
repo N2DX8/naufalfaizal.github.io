@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Naufal Faizal — Aspiring AI Engineer</title>
+<meta name="description" content="Muhamad Naufal Bin Muhamad Faizal — SPM graduate from MRSM ATM Bera, aspiring AI engineer, and chess club leader. Personal portfolio for university and scholarship applications.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#f9f9fb;
+  --white:#fff;
+  --ink:#18181b;
+  --purple:#7c3aed;
+  --purple-dark:#6d28d9;
+  --purple-light:#ede9fe;
+  --gray:#71717a;
+  --gray-soft:#a1a1aa;
+  --border:#e4e4e7;
+}
+html{scroll-behavior:smooth}
+body{font-family:'Plus Jakarta Sans',sans-serif;background:var(--bg);color:var(--ink);line-height:1.7;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+
+/* NAV */
+nav{background:rgba(249,249,251,.85);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid var(--border);padding:0 5%;height:64px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50}
+.nav-logo{font-weight:800;font-size:18px;letter-spacing:-.03em}
+.nav-logo span{color:var(--purple)}
+.nav-links{display:flex;align-items:center}
+.nav-links a{color:var(--gray);font-size:13px;text-decoration:none;font-weight:500;margin-left:28px;transition:color .2s}
+.nav-links a:hover{color:var(--ink)}
+.nav-toggle{display:none;background:none;border:none;cursor:pointer;color:var(--ink);padding:6px}
+
+/* SECTIONS */
+section{padding:90px 5%}
+.inner{max-width:1040px;margin:0 auto}
+.label{font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--purple);margin-bottom:8px}
+h2{font-size:34px;font-weight:800;letter-spacing:-.03em;margin-bottom:32px}
+
+/* HERO */
+#hero{min-height:100vh;display:flex;align-items:center;background:linear-gradient(160deg,#fff 0%,var(--bg) 60%);padding-top:40px}
+.hero-pill{display:inline-flex;align-items:center;gap:6px;background:var(--purple-light);color:var(--purple);font-size:12px;font-weight:700;padding:6px 14px;border-radius:50px;margin-bottom:24px;letter-spacing:.02em}
+.hero-pill .live-dot{width:6px;height:6px;background:var(--purple);border-radius:50%;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+h1{font-size:clamp(44px,7vw,84px);font-weight:800;line-height:.95;letter-spacing:-.04em;margin-bottom:24px}
+h1 .accent{color:var(--purple)}
+.hero-sub{font-size:17px;color:var(--gray);max-width:520px;margin-bottom:36px;font-weight:300;line-height:1.8}
+.hero-meta{display:flex;flex-wrap:wrap;gap:18px;margin-bottom:36px;font-size:13px;color:var(--gray);font-weight:500}
+.hero-meta span{display:inline-flex;align-items:center;gap:6px}
+.btns{display:flex;gap:12px;flex-wrap:wrap}
+.btn-p{background:var(--purple);color:#fff;padding:13px 28px;border-radius:12px;font-weight:700;font-size:14px;text-decoration:none;letter-spacing:.01em;box-shadow:0 4px 20px rgba(124,58,237,.25);transition:transform .2s,box-shadow .2s}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(124,58,237,.35)}
+.btn-s{background:var(--white);border:1.5px solid var(--border);color:var(--ink);padding:13px 28px;border-radius:12px;font-weight:500;font-size:14px;text-decoration:none;transition:border-color .2s}
+.btn-s:hover{border-color:var(--purple)}
+
+/* ABOUT */
+#about{background:var(--white)}
+.about-grid{display:grid;grid-template-columns:3fr 2fr;gap:48px;align-items:start}
+p{color:var(--gray);font-size:15px;margin-bottom:14px;font-weight:300}
+.info-list{display:flex;flex-direction:column;gap:10px}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:14px 18px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
+.info-key{font-size:12px;font-weight:700;color:var(--gray);letter-spacing:.04em;text-transform:uppercase}
+.info-val{font-size:14px;font-weight:600;color:var(--ink);text-align:right}
+
+/* EDUCATION */
+#education{background:var(--bg)}
+.edu-card{background:var(--white);border:1px solid var(--border);border-radius:18px;padding:28px;display:grid;grid-template-columns:1fr 1.4fr;gap:32px;align-items:start}
+.edu-head h3{font-size:20px;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
+.edu-head .edu-place{font-size:14px;color:var(--gray);font-weight:500;margin-bottom:14px}
+.edu-head .edu-years{display:inline-block;background:var(--purple-light);color:var(--purple);font-size:12px;font-weight:700;padding:4px 12px;border-radius:50px;letter-spacing:.04em}
+.edu-stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.edu-stat{padding:14px 16px;background:var(--bg);border-radius:10px;border:1px solid var(--border)}
+.edu-stat .k{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:.05em;text-transform:uppercase;margin-bottom:4px}
+.edu-stat .v{font-size:15px;font-weight:700;color:var(--ink)}
+.edu-stat .v small{font-size:11px;color:var(--gray);font-weight:500;display:block;margin-top:2px}
+
+/* SKILLS */
+#skills{background:var(--white)}
+.skill-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.skill-box{background:var(--bg);border-radius:16px;padding:26px;border:1px solid var(--border)}
+.skill-box h3{font-size:13px;font-weight:700;color:var(--purple);margin-bottom:22px;text-transform:uppercase;letter-spacing:.06em}
+.sk{margin-bottom:16px}
+.sk:last-child{margin-bottom:0}
+.sk-top{display:flex;justify-content:space-between;font-size:13px;color:var(--ink);margin-bottom:8px;font-weight:500}
+.sk-top span:last-child{color:var(--gray);font-weight:400}
+.sk-bar{height:6px;background:var(--purple-light);border-radius:10px;overflow:hidden}
+.sk-fill{height:6px;background:var(--purple);border-radius:10px;transition:width 1s ease}
+.tools{margin-top:24px;padding-top:20px;border-top:1px dashed var(--border)}
+.tools h4{font-size:11px;font-weight:700;color:var(--gray);letter-spacing:.06em;text-transform:uppercase;margin-bottom:12px}
+.tool-tags{display:flex;flex-wrap:wrap;gap:8px}
+.tool-tag{font-size:12px;font-weight:600;color:var(--ink);background:var(--white);border:1px solid var(--border);padding:5px 12px;border-radius:50px}
+
+/* PROJECTS */
+#projects{background:var(--bg)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.proj{background:var(--white);border:1px solid var(--border);border-radius:16px;padding:26px;transition:box-shadow .25s,border-color .25s,transform .25s}
+.proj:hover{box-shadow:0 12px 28px rgba(0,0,0,.06);border-color:var(--purple);transform:translateY(-3px)}
+.proj-icon{width:48px;height:48px;background:var(--purple-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:18px}
+.proj-cat{font-size:11px;font-weight:700;color:var(--purple);text-transform:uppercase;letter-spacing:.06em;margin-bottom:8px}
+.proj h3{font-size:16px;font-weight:700;margin-bottom:10px;color:var(--ink);letter-spacing:-.01em}
+.proj p{font-size:13px;color:var(--gray);line-height:1.7;margin-bottom:14px}
+.proj-status{display:inline-block;font-size:11px;font-weight:700;color:var(--purple);background:var(--purple-light);padding:3px 10px;border-radius:50px;letter-spacing:.04em}
+
+/* LEADERSHIP */
+#leadership{background:var(--white)}
+.lead-list{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.lead{background:var(--bg);border:1px solid var(--border);border-radius:16px;padding:24px;transition:border-color .2s}
+.lead:hover{border-color:var(--purple)}
+.lead-head{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.lead-icon{width:40px;height:40px;background:var(--purple-light);color:var(--purple);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.lead-title h3{font-size:15px;font-weight:700;color:var(--ink);letter-spacing:-.01em}
+.lead-title .lead-year{font-size:12px;color:var(--gray);font-weight:500}
+.lead ul{list-style:none;padding:0;margin:0}
+.lead li{font-size:13px;color:var(--gray);font-weight:400;padding-left:16px;position:relative;margin-bottom:6px;line-height:1.6}
+.lead li::before{content:'';position:absolute;left:0;top:9px;width:5px;height:5px;background:var(--purple);border-radius:50%}
+
+/* ACHIEVEMENTS */
+#achievements{background:var(--bg)}
+.ach-list{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.ach{display:flex;gap:16px;background:var(--white);border-radius:16px;padding:20px;border:1px solid var(--border);align-items:flex-start;transition:border-color .2s,box-shadow .2s}
+.ach:hover{border-color:var(--purple);box-shadow:0 6px 18px rgba(0,0,0,.04)}
+.ach-dot{width:44px;height:44px;background:var(--purple-light);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
+.ach h3{font-size:14px;font-weight:700;color:var(--ink);margin-bottom:4px;line-height:1.4;letter-spacing:-.01em}
+.ach p{font-size:12px;color:var(--gray);margin:0;line-height:1.6}
+
+/* INTERESTS */
+#interests{background:var(--white)}
+.int-wrap{display:flex;flex-wrap:wrap;gap:10px}
+.int{background:var(--bg);border:1.5px solid var(--border);border-radius:50px;padding:9px 20px;font-size:13px;font-weight:500;color:var(--gray);transition:border-color .2s,color .2s,background .2s;cursor:default}
+.int:hover{border-color:var(--purple);color:var(--purple);background:var(--purple-light)}
+
+/* CAREER GOAL */
+#goal{background:var(--bg)}
+.goal-card{background:var(--white);border:1px solid var(--border);border-radius:20px;padding:48px;text-align:center;position:relative;overflow:hidden}
+.goal-card::before{content:'';position:absolute;top:0;left:0;right:0;height:4px;background:linear-gradient(90deg,var(--purple),#a78bfa,var(--purple))}
+.goal-quote{font-size:24px;font-weight:300;line-height:1.55;color:var(--ink);max-width:720px;margin:0 auto 20px;letter-spacing:-.01em}
+.goal-quote strong{font-weight:800;color:var(--purple)}
+.goal-sub{font-size:14px;color:var(--gray);font-weight:500;letter-spacing:.04em;text-transform:uppercase}
+
+/* CONTACT */
+#contact{background:linear-gradient(135deg,var(--purple) 0%,var(--purple-dark) 100%);text-align:center;padding:100px 5%;position:relative;overflow:hidden}
+#contact::before{content:'';position:absolute;top:-100px;left:-100px;width:300px;height:300px;background:rgba(255,255,255,.05);border-radius:50%;filter:blur(60px)}
+#contact::after{content:'';position:absolute;bottom:-100px;right:-100px;width:300px;height:300px;background:rgba(255,255,255,.05);border-radius:50%;filter:blur(60px)}
+#contact .inner{position:relative;z-index:1}
+#contact .label{color:rgba(255,255,255,.7)}
+#contact h2{color:#fff;font-size:44px;margin-bottom:16px;letter-spacing:-.03em}
+#contact p{color:rgba(255,255,255,.8);max-width:480px;margin:0 auto 36px;font-weight:300;font-size:16px}
+.c-links{display:flex;justify-content:center;gap:12px;flex-wrap:wrap}
+.c-link{background:rgba(255,255,255,.15);backdrop-filter:blur(4px);color:#fff;padding:12px 26px;border-radius:12px;font-size:13px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.2);transition:background .2s,transform .2s}
+.c-link:hover{background:rgba(255,255,255,.28);transform:translateY(-2px)}
+
+/* FOOTER */
+footer{text-align:center;padding:28px 5%;font-size:12px;color:var(--gray);background:var(--white);border-top:1px solid var(--border);font-weight:500}
+footer span{color:var(--purple)}
+
+/* RESPONSIVE */
+@media (max-width:860px){
+  section{padding:70px 5%}
+  h2{font-size:28px;margin-bottom:24px}
+  .nav-toggle{display:block}
+  .nav-links{display:none;position:absolute;top:64px;left:0;right:0;background:var(--white);flex-direction:column;align-items:flex-start;padding:16px 5%;border-bottom:1px solid var(--border);box-shadow:0 8px 24px rgba(0,0,0,.06)}
+  .nav-links.open{display:flex}
+  .nav-links a{margin:8px 0}
+  .about-grid{grid-template-columns:1fr;gap:32px}
+  .edu-card{grid-template-columns:1fr;gap:24px}
+  .skill-grid{grid-template-columns:1fr}
+  .proj-grid{grid-template-columns:1fr}
+  .lead-list{grid-template-columns:1fr}
+  .ach-list{grid-template-columns:1fr}
+  .goal-card{padding:32px 24px}
+  .goal-quote{font-size:18px}
+  #contact h2{font-size:32px}
+  h1{font-size:44px}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-logo">Naufal<span>.</span></div>
+  <button class="nav-toggle" aria-label="Toggle menu" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about">About</a>
+    <a href="#education">Education</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#achievements">Achievements</a>
+    <a href="#contact">Contact</a>
+  </div>
+</nav>
+
+<section id="hero">
+  <div class="inner">
+    <div class="hero-pill"><span class="live-dot"></span> Open to scholarships & university opportunities</div>
+    <h1>Building<br>smarter<br><span class="accent">futures.</span></h1>
+    <p class="hero-sub">I'm Muhamad Naufal — a 17-year-old SPM straight-A graduate from MRSM ATM Bera, aspiring AI engineer, and chess club leader. I build tools that combine intelligence, creativity, and real-world impact.</p>
+    <div class="hero-meta">
+      <span>📍 Shah Alam, Selangor</span>
+      <span>🎓 SPM 7A+ 3A</span>
+      <span>🏆 Anugerah Pengetua</span>
+    </div>
+    <div class="btns">
+      <a href="#projects" class="btn-p">View my work</a>
+      <a href="#contact" class="btn-s">Get in touch</a>
+    </div>
+  </div>
+</section>
+
+<section id="about">
+  <div class="inner">
+    <div class="label">About me</div>
+    <h2>Who I am</h2>
+    <div class="about-grid">
+      <div>
+        <p>I'm <strong style="color:var(--ink);font-weight:700">Muhamad Naufal Bin Muhamad Faizal</strong> — a recent SPM graduate from MRSM ATM Bera, Pahang, with a deep passion for software engineering, artificial intelligence, and creative technology.</p>
+        <p>My time at MRSM shaped how I think. I started out motivated by competition, but over the years I learned that real growth comes from purpose and self-improvement. That mindset shift led me to commit fully to one goal: becoming an AI engineer who builds things that matter.</p>
+        <p>I'm not just a consumer of technology — I build with it. I develop AI chatbots for education using practical no-code tools like Chatbase and Replit, edit cinematic videos in Premiere Pro and CapCut, and run my own YouTube channel, <em>Naufal Academia</em>. I also led the Chess Club, served as President of the Student Leaders Council, and represented my school in national-level competitions.</p>
+        <p>I'm currently pursuing scholarships and university opportunities so I can keep building, keep learning, and contribute to Malaysia's digital future.</p>
+      </div>
+      <div class="info-list">
+        <div class="info-row"><span class="info-key">Age</span><span class="info-val">17</span></div>
+        <div class="info-row"><span class="info-key">Status</span><span class="info-val">SPM graduate</span></div>
+        <div class="info-row"><span class="info-key">School</span><span class="info-val">MRSM ATM Bera</span></div>
+        <div class="info-row"><span class="info-key">Focus</span><span class="info-val">AI & software</span></div>
+        <div class="info-row"><span class="info-key">Location</span><span class="info-val">Shah Alam, MY</span></div>
+        <div class="info-row"><span class="info-key">Languages</span><span class="info-val">EN · MY · AR</span></div>
+        <div class="info-row"><span class="info-key">Open to</span><span class="info-val">Scholarships</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="education">
+  <div class="inner">
+    <div class="label">Education</div>
+    <h2>Academic journey</h2>
+    <div class="edu-card">
+      <div class="edu-head">
+        <h3>MRSM ATM Bera</h3>
+        <div class="edu-place">Pahang, Malaysia · Form 1 – Form 5</div>
+        <span class="edu-years">2021 — 2025</span>
+      </div>
+      <div class="edu-stats">
+        <div class="edu-stat"><div class="k">SPM Result</div><div class="v">7A+ 3A<small>Straight A's</small></div></div>
+        <div class="edu-stat"><div class="k">PNG</div><div class="v">4.00<small>Semester 2, 2023</small></div></div>
+        <div class="edu-stat"><div class="k">Anugerah Pengetua</div><div class="v">CGPA &gt; 3.50<small>Tingkatan 1–5</small></div></div>
+        <div class="edu-stat"><div class="k">Languages</div><div class="v">EN · MY<small>Fluent · Basic Arabic</small></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="skills">
+  <div class="inner">
+    <div class="label">Skills</div>
+    <h2>What I bring</h2>
+    <div class="skill-grid">
+      <div class="skill-box">
+        <h3>Technical</h3>
+        <div class="sk"><div class="sk-top"><span>AI & chatbots</span><span>85%</span></div><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>Web foundations (HTML)</span><span>70%</span></div><div class="sk-bar"><div class="sk-fill" style="width:70%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>Machine learning concepts</span><span>65%</span></div><div class="sk-bar"><div class="sk-fill" style="width:65%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>PC building</span><span>90%</span></div><div class="sk-bar"><div class="sk-fill" style="width:90%"></div></div></div>
+        <div class="tools">
+          <h4>Tools</h4>
+          <div class="tool-tags">
+            <span class="tool-tag">Chatbase</span>
+            <span class="tool-tag">Replit</span>
+            <span class="tool-tag">HTML</span>
+            <span class="tool-tag">AI tools</span>
+          </div>
+        </div>
+      </div>
+      <div class="skill-box">
+        <h3>Creative & Communication</h3>
+        <div class="sk"><div class="sk-top"><span>Video editing</span><span>85%</span></div><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>Live streaming</span><span>80%</span></div><div class="sk-bar"><div class="sk-fill" style="width:80%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>Design & visuals</span><span>75%</span></div><div class="sk-bar"><div class="sk-fill" style="width:75%"></div></div></div>
+        <div class="sk"><div class="sk-top"><span>Public speaking (English)</span><span>85%</span></div><div class="sk-bar"><div class="sk-fill" style="width:85%"></div></div></div>
+        <div class="tools">
+          <h4>Tools</h4>
+          <div class="tool-tags">
+            <span class="tool-tag">Adobe Premiere Pro</span>
+            <span class="tool-tag">CapCut</span>
+            <span class="tool-tag">OBS Studio</span>
+            <span class="tool-tag">Streamlabs</span>
+            <span class="tool-tag">Canva</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="projects">
+  <div class="inner">
+    <div class="label">Projects</div>
+    <h2>What I've built</h2>
+    <div class="proj-grid">
+      <div class="proj">
+        <div class="proj-icon">🤖</div>
+        <div class="proj-cat">AI · Education</div>
+        <h3>AI Educational Chatbot</h3>
+        <p>An exam-prep chatbot designed to help students with notes, Q&amp;A, and personalized learning. Built with Chatbase and hosted on Replit, exploring NLP and automation fundamentals.</p>
+        <span class="proj-status">● Ongoing</span>
+      </div>
+      <div class="proj">
+        <div class="proj-icon">📚</div>
+        <div class="proj-cat">AI · Study Tool</div>
+        <h3>Study Assistant</h3>
+        <p>A personalized educational bot that generates summaries and quizzes from uploaded materials — making revision faster and more interactive for fellow students.</p>
+        <span class="proj-status">● Active</span>
+      </div>
+      <div class="proj">
+        <div class="proj-icon">🎬</div>
+        <div class="proj-cat">Content · YouTube</div>
+        <h3>Naufal Academia</h3>
+        <p>My personal YouTube channel where I share insights on technology, learning, and personal growth — practicing storytelling, editing, and confident communication.</p>
+        <span class="proj-status">● Live</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="leadership">
+  <div class="inner">
+    <div class="label">Leadership</div>
+    <h2>Roles & responsibilities</h2>
+    <div class="lead-list">
+      <div class="lead">
+        <div class="lead-head">
+          <div class="lead-icon">♟</div>
+          <div class="lead-title">
+            <h3>Team Leader, Chess Club</h3>
+            <div class="lead-year">2024 · MRSM ATM Bera</div>
+          </div>
+        </div>
+        <ul>
+          <li>Led weekly training sessions for 20+ members</li>
+          <li>Organized internal tournaments and competitive prep</li>
+          <li>Mentored junior players to improve performance and strategy</li>
+        </ul>
+      </div>
+      <div class="lead">
+        <div class="lead-head">
+          <div class="lead-icon">★</div>
+          <div class="lead-title">
+            <h3>President, Student Leaders Council</h3>
+            <div class="lead-year">2024 · MRSM ATM Bera</div>
+          </div>
+        </div>
+        <ul>
+          <li>Assisted in organizing student leadership programs and events</li>
+          <li>Coordinated between student body and school management</li>
+          <li>Represented the student voice in council decisions</li>
+        </ul>
+      </div>
+      <div class="lead">
+        <div class="lead-head">
+          <div class="lead-icon">✓</div>
+          <div class="lead-title">
+            <h3>Class Monitor</h3>
+            <div class="lead-year">2021 — 2025 · Five consecutive years</div>
+          </div>
+        </div>
+        <ul>
+          <li>Managed daily communication between students and teachers</li>
+          <li>Coordinated class activities and ensured discipline</li>
+          <li>Trusted with the role for the entire duration of secondary school</li>
+        </ul>
+      </div>
+      <div class="lead">
+        <div class="lead-head">
+          <div class="lead-icon">🎤</div>
+          <div class="lead-title">
+            <h3>School Speaking Corner</h3>
+            <div class="lead-year">Active member</div>
+          </div>
+        </div>
+        <ul>
+          <li>Regular 2–4 minute English speeches on technology and ideas</li>
+          <li>Sharpened public speaking, confidence, and articulation</li>
+          <li>Active prep for English speaking tests and presentations</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="achievements">
+  <div class="inner">
+    <div class="label">Achievements</div>
+    <h2>Milestones</h2>
+    <div class="ach-list">
+      <div class="ach">
+        <div class="ach-dot">🎓</div>
+        <div><h3>SPM 7A+ 3A — Straight A's</h3><p>Strong academic results across all core subjects.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">🏅</div>
+        <div><h3>Anugerah Pengetua (Tingkatan 1–5)</h3><p>Awarded for maintaining CGPA &gt; 3.50 throughout secondary school.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">♟</div>
+        <div><h3>2nd Place, MSSD Chess Tournament</h3><p>District level, 2023 &amp; 2025.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">🥈</div>
+        <div><h3>Runner-Up, MRSM National Chess Championship</h3><p>Held at MRSM Serting — national-level competition.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">🔬</div>
+        <div><h3>Runner-Up, MRSM Stemboree</h3><p>National-level STEM project competition.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">🥉</div>
+        <div><h3>Bronze, Innocreative Tech Challenge (ICTC 2.0)</h3><p>Project: NUTRICHARGE — innovation &amp; tech competition.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">🧠</div>
+        <div><h3>Mathematic Supreme League (MASUL)</h3><p>Participant in 2023 &amp; 2025 — national maths league.</p></div>
+      </div>
+      <div class="ach">
+        <div class="ach-dot">💡</div>
+        <div><h3>Independent AI Builder</h3><p>Self-driven projects in AI and education beyond the curriculum.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="interests">
+  <div class="inner">
+    <div class="label">Interests</div>
+    <h2>Beyond the screen</h2>
+    <div class="int-wrap">
+      <div class="int">🤖 Artificial Intelligence</div>
+      <div class="int">💻 Coding</div>
+      <div class="int">🚁 Drones</div>
+      <div class="int">🖥️ PC Building</div>
+      <div class="int">📷 Photography</div>
+      <div class="int">🎬 Videography</div>
+      <div class="int">♟ Chess</div>
+      <div class="int">🎤 Public Speaking</div>
+      <div class="int">📺 Content Creation</div>
+      <div class="int">⚡ Electric Vehicles</div>
+      <div class="int">🎮 Gaming</div>
+      <div class="int">📚 Self-Improvement</div>
+    </div>
+  </div>
+</section>
+
+<section id="goal">
+  <div class="inner">
+    <div class="label">Career goal</div>
+    <h2>Where I'm headed</h2>
+    <div class="goal-card">
+      <p class="goal-quote">To become an <strong>AI engineer</strong> specializing in machine learning and data science — building intelligent systems that solve real-world problems and contribute to <strong>Malaysia's digital transformation</strong>.</p>
+      <div class="goal-sub">— Naufal Faizal</div>
+    </div>
+  </div>
+</section>
+
+<section id="contact">
+  <div class="inner">
+    <div class="label">Get in touch</div>
+    <h2>Let's connect.</h2>
+    <p>Open to scholarships, university programs, mentorships, collaborations, and conversations about technology and the future.</p>
+    <div class="c-links">
+      <a href="mailto:naufal.faizal@gmail.com" class="c-link">✉ Email</a>
+      <a href="tel:+60166239401" class="c-link">📱 +60 16-623 9401</a>
+      <a href="https://www.youtube.com/@NaufalAcademia" target="_blank" rel="noopener" class="c-link">▶ Naufal Academia</a>
+      <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="c-link">in LinkedIn</a>
+      <a href="https://github.com/" target="_blank" rel="noopener" class="c-link">⌘ GitHub</a>
+    </div>
+  </div>
+</section>
+
+<footer>© 2026 Muhamad Naufal Bin Muhamad Faizal — built with <span>purpose</span>.</footer>
+
+<script>
+// Close mobile menu on link click
+document.querySelectorAll('#navLinks a').forEach(a=>{
+  a.addEventListener('click',()=>document.getElementById('navLinks').classList.remove('open'));
+});
+// Animate skill bars on scroll
+const fills = document.querySelectorAll('.sk-fill');
+fills.forEach(f=>{const w=f.style.width;f.style.width='0%';setTimeout(()=>f.style.width=w,200);});
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{
+    if(e.isIntersecting){
+      e.target.querySelectorAll('.sk-fill').forEach(f=>{
+        const w = f.getAttribute('data-w') || f.dataset.w;
+      });
+    }
+  });
+},{threshold:.2});
+document.querySelectorAll('.skill-box').forEach(b=>io.observe(b));
+</script>
+
+</body>
+</html>
